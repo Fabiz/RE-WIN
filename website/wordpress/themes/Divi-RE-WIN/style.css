@@ -10,12 +10,12 @@ Updated: 2024-05-11 17:20:20
 
 */
 
-.page-press .main_title {
+.page-list-items .main_title {
   padding-top: 80px;
   padding-right: 80px;
 }
 
-.page-press img {
+.page-list-items img {
   padding-top: 10px;
   padding-right: 20px;
   max-height: 128px;
@@ -23,20 +23,20 @@ Updated: 2024-05-11 17:20:20
   width: auto;
 }
 
-.page-press td {
+.page-list-items td {
   padding-bottom: 60px;
   padding-right: 20px;
   vertical-align: top;
 }
 
-.page-press .button-link {
+.page-list-items .button-link {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
 
 @media (max-width: 640px) {
-  .page-press img {
+  .page-list-items img {
     padding-top: 10px;
     padding-right: 10px;
     max-height: 64px;

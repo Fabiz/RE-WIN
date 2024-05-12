@@ -6,7 +6,7 @@ Template Name: Press Page
 get_header(); ?>
 
 <div class="container">
-	<div id="content-area" class="clearfix page-press">
+	<div id="content-area" class="clearfix page-list-items">
 		<article class="page type-page status-publish hentry">	
 
 
@@ -18,7 +18,7 @@ get_header(); ?>
 				$posts_query = new WP_Query( $args );
 				while($posts_query->have_posts()) : 
 						$posts_query->the_post();
-						$date = get_the_date(); ?>
+						?>
 				
 					<tr>
 						<td>
@@ -32,6 +32,7 @@ get_header(); ?>
 						</td>
 						<td>
 							<h2 class="entry-title"><?php the_title(); ?></h2>
+							<p class="post-meta"> <span class="published"><?php the_date(); ?></span></p>
 							<p>
 								<?php	
 									$value = get_field( "text" );
@@ -47,7 +48,7 @@ get_header(); ?>
 							$value = get_field( "url" );
 							if( $value ) {
 								echo '<div class="button-link et_pb_button_module_wrapper et_pb_button_10000_wrapper et_pb_module ">';
-									echo '<a class="et_pb_button et_pb_button_10000 et_pb_bg_layout_light" href="' . $value . '">Zum Beitrag</a>';
+									echo '<a class="et_pb_button et_pb_button_10000 et_pb_bg_layout_light" href="' . $value . '" target="_blank">Zum Beitrag</a>';
 								echo '</div>';
 							}
 							?>
