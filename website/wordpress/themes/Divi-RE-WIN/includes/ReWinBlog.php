@@ -4,7 +4,7 @@
 
 get_template_part( '/includes/builder/module/helpers/Overlay.php' );
 
-class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased {
+class ET_Builder_Module_ReWin_Blog extends ET_Builder_Module_Type_PostBased {
 	/**
 	 * Track if the module is currently rendering to prevent unnecessary rendering and recursion.
 	 *
@@ -13,9 +13,9 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 	protected static $rendering = false;
 
 	function init() {
-		$this->name             = esc_html__( 'Transport Blog', 'et_builder' );
-		$this->plural           = esc_html__( 'Transport Blogs', 'et_builder' );
-		$this->slug             = 'et_pb_transport_blog';
+		$this->name             = esc_html__( 'ReWin Blog', 'et_builder' );
+		$this->plural           = esc_html__( 'ReWin Blogs', 'et_builder' );
+		$this->slug             = 'et_pb_rewin_blog';
 		$this->vb_support       = 'off'; // set to off by fso
 		$this->main_css_element = '%%order_class%% .et_pb_post';
 
@@ -653,7 +653,7 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 			),
 			'__posts'                       => array(
 				'type'                => 'computed',
-				'computed_callback'   => array( 'ET_Builder_Module_Transport_Blog', 'get_blog_posts' ),
+				'computed_callback'   => array( 'ET_Builder_Module_ReWin_Blog', 'get_blog_posts' ),
 				'computed_depends_on' => array(
 					'use_current_loop',
 					'post_type',
@@ -683,7 +683,7 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 			),
 			'__page'                        => array(
 				'type'              => 'computed',
-				'computed_callback' => array( 'ET_Builder_Module_Transport_Blog', 'get_blog_posts' ),
+				'computed_callback' => array( 'ET_Builder_Module_ReWin_Blog', 'get_blog_posts' ),
 				'computed_affects'  => array(
 					'__posts',
 				),
@@ -1170,7 +1170,7 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 			ob_start();
 		}
 
-		add_filter( 'get_pagenum_link', array( 'ET_Builder_Module_Transport_Blog', 'filter_pagination_url' ) );
+		add_filter( 'get_pagenum_link', array( 'ET_Builder_Module_ReWin_Blog', 'filter_pagination_url' ) );
 
 		if ( function_exists( 'wp_pagenavi' ) ) {
 			wp_pagenavi();
@@ -1182,7 +1182,7 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 			}
 		}
 
-		remove_filter( 'get_pagenum_link', array( 'ET_Builder_Module_Transport_Blog', 'filter_pagination_url' ) );
+		remove_filter( 'get_pagenum_link', array( 'ET_Builder_Module_ReWin_Blog', 'filter_pagination_url' ) );
 
 		if ( ! $echo ) {
 			$output = ob_get_contents();
@@ -1642,6 +1642,11 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 
 					echo '<div class="post-content">';
 
+					$key_from = get_post_meta($post->ID, 'from', true);
+					if ($key_from) { 
+						echo '<div class="from">' . $key_from . '</div>'; 
+					}
+
 					$multi_view->render_element(
 						array(
 							'tag'            => 'div',
@@ -2020,5 +2025,5 @@ class ET_Builder_Module_Transport_Blog extends ET_Builder_Module_Type_PostBased 
 }
 
 if ( et_builder_should_load_all_module_data() ) {
-	new ET_Builder_Module_Transport_Blog();
+	new ET_Builder_Module_ReWin_Blog();
 }
