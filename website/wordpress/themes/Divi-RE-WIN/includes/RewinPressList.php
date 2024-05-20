@@ -22,13 +22,6 @@ class ET_Builder_Module_Rewin_Press_List extends ET_Builder_Module {
 				'description'     => esc_html__( 'Input your desired heading here.', 'et_builder' ),
 				'toggle_slug'     => 'main_content',
 			),
-			'content'     => array(
-				'label'           => esc_html__( 'Content', 'et_builder' ),
-				'type'            => 'tiny_mce',
-				'option_category' => 'basic_option',
-				'description'     => esc_html__( 'Content entered here will appear below the heading text.', 'et_builder' ),
-				'toggle_slug'     => 'main_content',
-			),
 		);
 	}
 
@@ -44,7 +37,7 @@ class ET_Builder_Module_Rewin_Press_List extends ET_Builder_Module {
   private function tablecontent() {
 		ob_start(); ?>
 
-		<table>
+		<div class="rw-table page-list-items">
     
 		<?php 
 			$args = array( 'posts_per_page' => 50, 'category_name' => 'press'); 
@@ -53,17 +46,20 @@ class ET_Builder_Module_Rewin_Press_List extends ET_Builder_Module {
 					$posts_query->the_post();
 					?>
 			
-				<tr>
-					<td>
+				<div class="press-row">
+					<div class="rw-cell-icon press-cell press-icon">
+						<div>
 						<?php
 							$image = get_field('icon');
 							// (size: thumbnail, medium, large, full or custom size)
 							if( $image ) {
 								echo wp_get_attachment_image( $image, "medium", "", ["class" => "thumb"] );
 							}
+							echo '<br/>';
 						?>
-					</td>
-					<td>
+						</div>
+					</div>
+					<div class="rw-cell-content press-cell press-content">
 						<h2 class="entry-title"><?php the_title(); ?></h2>
 						<p class="post-meta"> <span class="published"><?php the_date(); ?></span></p>
 						<p>
@@ -85,10 +81,10 @@ class ET_Builder_Module_Rewin_Press_List extends ET_Builder_Module {
 							echo '</div>';
 						}
 						?>
-					</td>
-					</tr>
+					</div>
+				</div>
 			<?php endwhile; ?>
-		</table>
+			</div>
 
 		<?php
 		return ob_get_clean();
