@@ -39,6 +39,16 @@ add_action(
     }
 );
 
+// register TeamList
+add_action(
+    'et_builder_ready',
+    function() {
+        get_template_part( '/includes/RewinTeamList' ); 
+        $dcfm = new ET_Builder_Module_Rewin_Team_List(); 
+        add_shortcode( 'et_pb_rewin_team_list', array( $dcfm, '_shortcode_callback' ) ); 
+    }
+);
+
 // register EventsList
 
 // add_action(

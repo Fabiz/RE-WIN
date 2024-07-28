@@ -95,7 +95,7 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 						echo  $acf_field;
 						echo '</span>'; 
 					}
-					echo '</div>';
+					echo '</div>'; // end transport
 
 					$acf_field = get_field('cargo');
 					if ($acf_field) { 
@@ -103,8 +103,9 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 						echo $acf_field;
 						echo '</div>'; 
 					}
-					echo '</div>';
 				}
+
+				echo '</div>'; // end column
 			
 
 				if ($count % 4 == 3) {
