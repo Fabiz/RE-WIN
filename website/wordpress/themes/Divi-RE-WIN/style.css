@@ -10,23 +10,15 @@ Updated: 2024-05-11 17:20:20
 
 */
 
+/*place button modules next to each other in the same column*/
+.inline-btn  {
+  display: inline-block;
+  margin-right: 20px !important;
+}
+
 .page-list-items .main_title {
   padding-top: 80px;
   padding-right: 80px;
-}
-
-.page-list-items img {
-  padding-top: 10px;
-  padding-right: 20px;
-  max-height: 128px;
-  max-width: 128px;
-  width: auto;
-}
-
-.page-list-items td {
-  padding-bottom: 60px;
-  padding-right: 20px;
-  vertical-align: top;
 }
 
 .page-list-items .button-link {
@@ -34,6 +26,52 @@ Updated: 2024-05-11 17:20:20
   padding-bottom: 20px;
 }
 
+.rw-table
+{
+    display: table;
+}
+
+.rw-table > div
+{
+    display: table-row;
+}
+
+.rw-table > div > div
+{
+    display: table-cell;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.rw-cell-icon img
+{
+  display: block;
+  float: left;
+  padding-top: 10px;
+  padding-right: 20px;
+  max-height: 128px;
+  max-width: 128px;
+  width: auto;
+}
+
+.transport-cell {
+  text-align: center;
+}
+
+.transport-row {
+  width: 100%;
+}
+
+.transport-icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 96px;
+}
+
+.press-cell {
+  padding-bottom: 60px;
+}
 
 @media (max-width: 640px) {
   .page-list-items img {
@@ -41,6 +79,5 @@ Updated: 2024-05-11 17:20:20
     padding-right: 10px;
     max-height: 64px;
     max-width: 64px;
-    width: auto;
   }
 }

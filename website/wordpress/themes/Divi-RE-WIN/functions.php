@@ -39,6 +39,64 @@ add_action(
     }
 );
 
+// register EventsList
+
+// add_action(
+//    'et_builder_ready',
+//    function() {
+//        get_template_part( '/includes/RewinEventList' ); 
+//        $dcfm = new ET_Builder_Module_Rewin_Event_List(); 
+//        add_shortcode( 'et_pb_rewin_event_list', array( $dcfm, '_shortcode_callback' ) ); 
+//    }
+// );
+
+
+// Function add Custom // ERLAUBE SVG UPLOADS 
+// ========================================================================== //
+function bh_svgimg_types($file_types){
+
+   $new_filetypes = array();
+   $new_filetypes['svg'] = 'image/svg+xml';
+   $file_types = array_merge($file_types, $new_filetypes );
+
+   return $file_types;
+}
+add_action('upload_mimes', 'bh_svgimg_types');
+
+// Zeigt SVG's in der Mediathek als Vorschau an // 
+function bh_svg_media_thumbnails($response, $attachment, $meta){
+    if($response['type'] === 'image' && $response['subtype'] === 'svg+xml' && class_exists('SimpleXMLElement'))
+    {
+        try {
+            $path = get_attached_file($attachment->ID);
+            if(@file_exists($path))
+            {
+                $svg = new SimpleXMLElement(@file_get_contents($path));
+                $src = $response['url'];
+                $width = (int) $svg['width'];
+                $height = (int) $svg['height'];
+
+                //Media Gallerie
+                $response['image'] = compact( 'src', 'width', 'height' );
+                $response['thumb'] = compact( 'src', 'width', 'height' );
+
+                //Media Einzelbild
+                $response['sizes']['full'] = array(
+                    'height'        => $height,
+                    'width'         => $width,
+                    'url'           => $src,
+                    'orientation'   => $height > $width ? 'portrait' : 'landscape',
+                );
+            }
+        }
+        catch(Exception $e){}
+    }
+
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'bh_svg_media_thumbnails', 10, 3);
+
+
 
 
 // END ENQUEUE PARENT ACTION

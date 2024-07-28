@@ -1,9 +1,9 @@
 <?php
 
-class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
+class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 
 			
-	public $slug       = 'et_pb_rewin_transport_list';
+	public $slug       = 'et_pb_rewin_event_list';
 	public $vb_support = 'off';
 
 	public $main_css_element = '%%order_class%% .et_pb_post';
@@ -22,11 +22,11 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 				'description'     => esc_html__( 'Input your desired heading here.', 'et_builder' ),
 				'toggle_slug'     => 'main_content',
 			),
-			'transports_number'  => array(
-				'label'            => esc_html__( 'Transport Count', 'et_builder' ),
+			'events_number'  => array(
+				'label'            => esc_html__( 'Event Count', 'et_builder' ),
 				'type'             => 'text',
 				'option_category'  => 'configuration',
-				'description'      => esc_html__( 'Choose how many transports you would like to display.', 'et_builder' ),
+				'description'      => esc_html__( 'Choose how many events you would like to display.', 'et_builder' ),
 				'computed_affects' => array(
 					'__posts',
 				),
@@ -38,7 +38,7 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 
 	public function render( $unprocessed_props, $content, $render_slug ) {
 		return sprintf(
-			'<div class="page-list-items transport-list"><h1 class="rewin-transport-list-header-heading">%1$s</h1>
+			'<div class="page-list-items event-list"><h1 class="rewin-event-list-header-heading">%1$s</h1>
 			<p>%2$s</p></div>',
 			esc_html( $this->props['heading'] ),
 			$this->tablecontent()
@@ -50,10 +50,10 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 
 		<?php 
 			$args = array( 
-				'posts_per_page' => intval( $this->props['transports_number'] ),
+				'posts_per_page' => intval( $this->props['events_number'] ),
 				'post_status'    => array( 'publish', 'private', 'inherit' ),
-				'category_name'  => 'transport', 
-				'orderby'        => 'meta_value', 
+				'category_name'  => 'event', 
+				'orderby'        => 'event_date', 
 				'meta_key'       => 'number', 
 				'order'          => 'DESC'); 
 
@@ -64,45 +64,21 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 				$posts_query->the_post();
 			
 				if ($count % 4 == 0) {
-					echo '<div class="et_pb_row transport-row">';
+					echo '<div class="et_pb_row event-row">';
 				}
 			
-				echo '<div class="et_pb_column et_pb_column_1_4 transport-cell">';
+				echo '<div class="et_pb_column et_pb_column_1_4 event-cell">';
 			
 				{
-					echo '<div class="transport-title"><h4>';
+					echo '<div class="event-title"><h4>';
 					echo the_title();
 					echo '</h4></div>';
-					echo '<div class="transport-date">';
+					echo '<div class="event-date">';
 					echo the_date();
 					echo '</div>';
 
-					echo '<div class="transport-icon">';
-					echo file_get_contents(__DIR__ . '/../images/largetruck.svg');
-					echo '</div>';
-				
-					echo '<div class="transport-from-to">';
-					$acf_field = get_field('from');
-					if ($acf_field) { 
-						echo '<span class="transport-from">';
-						echo $acf_field;
-						echo  '</span>'; 
-					}
-					echo ' &rarr; ';
-					$acf_field = get_field('to');
-					if ($acf_field) { 
-						echo '<span class="transport-to">';
-						echo  $acf_field;
-						echo '</span>'; 
-					}
-					echo '</div>';
-
-					$acf_field = get_field('cargo');
-					if ($acf_field) { 
-						echo '<div class="transport-cargo">';
-						echo $acf_field;
-						echo '</div>'; 
-					}
+					
+					
 					echo '</div>';
 				}
 			
@@ -123,5 +99,5 @@ class ET_Builder_Module_Rewin_Transport_List extends ET_Builder_Module {
 
 }
 
-new ET_Builder_Module_Rewin_Transport_List();
+new ET_Builder_Module_Rewin_Event_List();
 
