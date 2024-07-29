@@ -40,6 +40,7 @@ class ET_Builder_Module_Rewin_Team_List extends ET_Builder_Module {
 
 		<?php 
 			$args = array( 
+				'posts_per_page' => 100,
 				'post_status'    => array( 'publish', 'private', 'inherit' ),
 				'category_name'  => 'team', 
 				'orderby'        => 'meta_value', 
