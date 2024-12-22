@@ -51,14 +51,14 @@ add_action(
 
 // register EventsList
 
-// add_action(
-//    'et_builder_ready',
-//    function() {
-//        get_template_part( '/includes/RewinEventList' ); 
-//        $dcfm = new ET_Builder_Module_Rewin_Event_List(); 
-//        add_shortcode( 'et_pb_rewin_event_list', array( $dcfm, '_shortcode_callback' ) ); 
-//    }
-// );
+add_action(
+   'et_builder_ready',
+   function() {
+       get_template_part( '/includes/RewinEventList' ); 
+       $dcfm = new ET_Builder_Module_Rewin_Event_List(); 
+       add_shortcode( 'et_pb_rewin_event_list', array( $dcfm, '_shortcode_callback' ) ); 
+   }
+);
 
 
 // Function add Custom // ERLAUBE SVG UPLOADS 

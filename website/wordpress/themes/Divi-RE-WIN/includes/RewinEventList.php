@@ -10,7 +10,7 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 
 
 	public function init() {
-		$this->name = esc_html__( 'ReWin Transport List', 'et_builder' );
+		$this->name = esc_html__( 'ReWin Event List', 'et_builder' );
 	}
 
 	public function get_fields() {
@@ -21,17 +21,6 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 				'option_category' => 'basic_option',
 				'description'     => esc_html__( 'Input your desired heading here.', 'et_builder' ),
 				'toggle_slug'     => 'main_content',
-			),
-			'events_number'  => array(
-				'label'            => esc_html__( 'Event Count', 'et_builder' ),
-				'type'             => 'text',
-				'option_category'  => 'configuration',
-				'description'      => esc_html__( 'Choose how many events you would like to display.', 'et_builder' ),
-				'computed_affects' => array(
-					'__posts',
-				),
-				'toggle_slug'      => 'main_content',
-				'default'          => 100,
 			),
 		);
 	}
@@ -48,52 +37,63 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
   private function tablecontent() {
 		ob_start(); ?>
 
+		<div class="rw-table page-list-items">
+    
 		<?php 
-			$args = array( 
-				'posts_per_page' => intval( $this->props['events_number'] ),
-				'post_status'    => array( 'publish', 'private', 'inherit' ),
-				'category_name'  => 'event', 
-				'orderby'        => 'event_date', 
-				'meta_key'       => 'number', 
-				'order'          => 'DESC'); 
-
-
+			$args = array( 'posts_per_page' => 50, 'category_name' => 'event'); 
 			$posts_query = new WP_Query( $args );
-			$count = 0;
 			while($posts_query->have_posts()) : 
-				$posts_query->the_post();
+					$posts_query->the_post();
+					?>
 			
-				if ($count % 4 == 0) {
-					echo '<div class="et_pb_row event-row">';
-				}
-			
-				echo '<div class="et_pb_column et_pb_column_1_4 event-cell">';
-			
-				{
-					echo '<div class="event-title"><h4>';
-					echo the_title();
-					echo '</h4></div>';
-					echo '<div class="event-date">';
-					echo the_date();
-					echo '</div>';
-
+				<div class="event-row">
 					
-					
-					echo '</div>';
-				}
-			
+					<div class="rw-cell-content event-cell event-content">
+						<h2 class="entry-title"><?php the_title(); ?></h2>
+						<!-- <p class="post-meta"> <span class="published"><?php the_date(); ?></span></p> -->
+						<p>
+							<?php	
+								
+								echo '<div class="event-date">';
 
-				if ($count % 4 == 3) {
-					echo '</div>';
-				}
-				
-				$count += 1;
-			
-			endwhile;
+								$acf_date = get_field('date');
+								if ($acf_date) {
+									echo 'Datum: ' . $acf_date . '<br/>';
+								}
+								$acf_startime = get_field('starttime');
+								if ($acf_startime) { 
+									echo 'Zeit:' . $acf_startime;
+									$acf_endtime = get_field('endtime');
+									if ($acf_endtime) { 
+										echo '-' . $acf_endtime;
+									}
+									echo '<br/>';
+								}
+								$acf_location = get_field('location');
+								if ($acf_location) {
+									echo 'Ort: ' . $acf_location . '<br/>';
+								}
+							
+								echo get_permalink( );
 
-			echo '</div>';
+								echo '</div>';
+							?>
+						</p>
 
-		
+						<?php	
+						$value = get_field( "url" );
+						if( $value ) {
+							echo '<div class="button-link et_pb_button_module_wrapper et_pb_button_10000_wrapper et_pb_module ">';
+								echo '<a class="et_pb_button et_pb_button_10000 et_pb_bg_layout_light" href="' . $value . '" target="_blank">Zum Beitrag</a>';
+							echo '</div>';
+						}
+						?>
+					</div>
+				</div>
+			<?php endwhile; ?>
+			</div>
+
+		<?php
 		return ob_get_clean();
 	}
 
