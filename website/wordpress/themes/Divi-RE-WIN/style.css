@@ -72,7 +72,21 @@ Updated: 2024-05-11 17:20:20
   aspect-ratio: 1;
 }
 
+.event-info {
+  margin-bottom: 40px;
+}
 
+
+.event-header-key {
+  display: inline-block;
+  font-size: 100%;
+  width: 60px;
+}
+
+.event-header-value {
+  display: inline-block;
+  font-weight: 700;
+}
 
 .transport-icon {
   display: block;
@@ -83,6 +97,10 @@ Updated: 2024-05-11 17:20:20
 
 .press-cell {
   padding-bottom: 60px;
+}
+
+.et-db #et-boc .et-l .et-l--post .et_builder_inner_content .et_pb_row {
+	width: 100%;
 }
 
 @media (max-width: 640px) {
