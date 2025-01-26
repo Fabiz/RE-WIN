@@ -69,6 +69,15 @@ add_action(
     }
  );
 
+ add_action(
+    'et_builder_ready',
+    function() {
+        get_template_part( '/includes/RewinEventTeaser' ); 
+        $dcfm = new ET_Builder_Module_Rewin_Event_Teaser(); 
+        add_shortcode( 'et_pb_rewin_event_teaser', array( $dcfm, '_shortcode_callback' ) ); 
+    }
+ );
+
 
 // Function add Custom // ERLAUBE SVG UPLOADS 
 // ========================================================================== //
