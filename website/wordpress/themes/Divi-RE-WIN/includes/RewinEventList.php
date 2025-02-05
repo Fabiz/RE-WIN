@@ -121,7 +121,7 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 		<?php
 	}
 
-	private function argscomparedate($compare) {
+	private function argscomparedate($compare, $order) {
 		$today = date('Ymd');
 		return array('posts_per_page' => 50, 
 									'category_name' => 'event',
@@ -133,7 +133,7 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 										'type' => 'DATE'
 									)),
 									'orderby'           => 'meta_value',
-									'order'             => 'ASC' 
+									'order'             => $order 
 		);
 	}
 
@@ -145,8 +145,9 @@ class ET_Builder_Module_Rewin_Event_List extends ET_Builder_Module {
 		<?php 
 			$today = date('Ymd');
 			$filter = intval($this->props['date_filter']) == 1 ? '>=' : '<';
+			$order = intval($this->props['date_filter']) == 1 ? 'ASC' : 'DESC';
 	
-			$args = $this->argscomparedate($filter);
+			$args = $this->argscomparedate($filter, $order);
 			
 			$posts_query = new WP_Query( $args );
 			while($posts_query->have_posts()) : 
